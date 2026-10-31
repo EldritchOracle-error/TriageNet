@@ -17,3 +17,6 @@ Official repository for my B.Tech Biomedical Engineering Final-Year Thesis. This
    ```bash
    git clone [https://github.com/YOUR-USERNAME/your-repo-name.git](https://github.com/YOUR-USERNAME/your-repo-name.git)
    cd your-repo-name
+
+## Triage Curve 
+<img width="1200" height="600" alt="triage_curve" src="https://github.com/user-attachments/assets/544a9158-42b0-42d7-8154-3d925d27ebfd" />
