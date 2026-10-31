@@ -18,5 +18,39 @@ Official repository for my B.Tech Biomedical Engineering Final-Year Thesis. This
    git clone [https://github.com/YOUR-USERNAME/your-repo-name.git](https://github.com/YOUR-USERNAME/your-repo-name.git)
    cd your-repo-name
 
+## Results
+
+Evaluated on a patient-wise held-out test set (56 patients) from BraTS 2020.
+Train / val / test split: 257 / 56 / 56 patients (24,422 slice pairs in total).
+
+### Segmentation under missing MRI modalities
+
+| Input condition        | Mean Dice |
+|------------------------|-----------|
+| All modalities         | 0.7514    |
+| T1 missing             | 0.7500    |
+| T2 missing             | 0.7492    |
+| FLAIR missing          | 0.7068    |
+| T1ce missing           | 0.6117    |
+| T1ce + FLAIR missing   | 0.5979    |
+
+T1ce and FLAIR carry the most information. Losing T1 or T2 barely changes performance.
+
+### Uncertainty-guided slice triage
+
+| Review strategy                          | Errors captured in top 20% of slices |
+|------------------------------------------|--------------------------------------|
+| **Review Priority Score (RPS)**          | **64.10%**                           |
+| Tumor-area ranking                       | 29.49%                               |
+| Random order                             | 21.79%                               |
+
+Reviewing only the top 20% of slices ranked by RPS catches about 3x more
+errors than random review.
+
+### Method summary
+- 2D ResUNet with modality dropout and a 4-bit availability mask (FiLM conditioning at the bottleneck)
+- Monte Carlo Dropout (T stochastic passes) for pixel-wise predictive entropy
+- Review Priority Score: mean tumor-region entropy, weighted by the number of missing modalities
+
 ## Triage Curve 
 <img width="1200" height="600" alt="triage_curve" src="https://github.com/user-attachments/assets/544a9158-42b0-42d7-8154-3d925d27ebfd" />
